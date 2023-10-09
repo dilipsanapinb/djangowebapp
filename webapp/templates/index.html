@@ -1,21 +1,42 @@
 {% include "header.html" %}
   <body>
+
+    {% comment %} form {% endcomment %}
+    <!-- form -->
+<div class="container my-3">
+    <h2 class="text-center">Add a Todo</h2>
+    <form action="{% url 'create' %}" method="POST">
+      {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">Todo Title</label>
+            <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp">
+
+        </div>
+        <div class="mb-3">
+            <label for="desc" class="form-label">Todo Description</label>
+            <input type="text" name="description" class="form-control" id="description">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+    {% comment %} form ended {% endcomment %}
     <div class="container mt-4">
         <table class="table">
   <thead>
     <tr>
       <th scope="col">SN</th>
       <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Description</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
-    {% for student in students%}
+    {% for todo in todos %}
     <tr>
       <th scope="row">{{forloop.counter}}</th>
-      <td>{{student.name}}</td>
-      <td>{{student.email}}</td>
+      <td>{{todo.title}}</td>
+      <td>{{todo.description}}</td>
       <td>{{"Edit"}}</td>
     </tr>
     {% endfor %}
@@ -24,8 +45,6 @@
 
         
     </div>
-
-    
   </body>
 {%include "footer.html"%}
 

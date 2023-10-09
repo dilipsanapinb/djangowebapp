@@ -1,24 +1,25 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from .models import Todo
+from .forms import TodoForm
 
 
 def home(request):
-    data={
-        'title':'Home',
-        'clist':['Java','Javascript','Python'],
-        'students':[
-            {'name':'Dilip','email':'dilip@gmail.com'},
-            {'name':'Ajay','email':'ajay@gmail.com'}
-        ]
-    }
-    return render(request,"index.html",data)
+    todos=Todo.objects.all()
+
+    return render(request,"index.html",{'todos':todos})
+
+
 def aboutus(request):
     return render(request,'aboutus.html')
 
+def create_todo(request):
+    if request.method=='POST':
+        form=TodoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form=TodoForm()
+    return render(request,'index.html',{'form':form})
 
-
-def course(request):
-    return HttpResponse("Course page")
-
-def courseDetails(request,courseId):
-    return HttpResponse(courseId)
