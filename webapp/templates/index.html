@@ -1,0 +1,32 @@
+{% include "header.html" %}
+  <body>
+    <div class="container mt-4">
+        <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">SN</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in students%}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{student.name}}</td>
+      <td>{{student.email}}</td>
+      <td>{{"Edit"}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+        
+    </div>
+
+    
+  </body>
+{%include "footer.html"%}
+
+</html>
